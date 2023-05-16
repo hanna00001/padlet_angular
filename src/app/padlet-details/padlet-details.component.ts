@@ -2,7 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Padlet, User} from "../shared/padlet";
 import {Entrie} from "../shared/entrie";
 import {PadletService} from "../shared/padlet.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {PadletFactory} from "../shared/padlet-factory";
 
 @Component({
   selector: 'bs-padlet-details',
@@ -12,17 +13,25 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class PadletDetailsComponent implements OnInit{
 
-  padlet: Padlet | undefined;
-  entries: Entrie[] = [];
+  padlet: Padlet = PadletFactory.empty();
 
-
-  constructor(private p: PadletService, private route: ActivatedRoute) {
+  constructor(
+    private ps: PadletService,
+    private route: ActivatedRoute,
+    private router: Router) {
   }
 
   ngOnInit(){
     const params = this.route.snapshot.params;
-    this.padlet = this.p.getSinglePadlet(params['id']);
-    this.entries = this.p.getAllEntries(params['id']);
+    this.ps.getSinglePadlet(params['id']).subscribe((p:Padlet) => this.padlet = p);
+  }
+
+  removePadlet(){
+    if (confirm('Padlet wirklich löschen?')) {
+      this.ps.removePadlet(this.padlet.id)
+        .subscribe((res:any) => this.router.navigate(['../'], { relativeTo:
+          this.route }));
+    }
   }
 
 }

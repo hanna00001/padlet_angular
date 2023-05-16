@@ -8,6 +8,7 @@ import { PadletDetailsComponent } from './padlet-details/padlet-details.componen
 import { EntrieItemComponent } from './entrie-item/entrie-item.component';
 import {PadletService} from "./shared/padlet.service";
 import {AppRoutingModule} from "./app-routing.module";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import {AppRoutingModule} from "./app-routing.module";
     EntrieItemComponent,
   ],
   imports: [
-    BrowserModule, AppRoutingModule
+    BrowserModule, AppRoutingModule, HttpClientModule
   ],
   providers: [PadletService],
   bootstrap: [AppComponent]

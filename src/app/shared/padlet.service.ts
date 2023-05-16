@@ -1,46 +1,48 @@
 import { Injectable } from '@angular/core';
 import {Padlet, User} from "./padlet";
-import {Entrie} from "./entrie";
+import {catchError, Observable, retry, throwError} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable(
+)
 export class PadletService {
 
-  padlets: Padlet[];
-  entries: Entrie[];
+  private api = 'http://padlet23.s2010456010.student.kwmhgb.at/api';
 
-  constructor() {
-    this.padlets = [
-      new Padlet(1,
-        'Padlet 1',
-        new User(1,'Susi', 'Huber', 'test@test.at', 'secret', 'https://i.pinimg.com/originals/ba/d4/5a/bad45a40fa6e153ef8d1599ba875102c.png'),
-        true),
+  constructor(private http: HttpClient) {}
 
-      new Padlet(2,
-        'Padlet 2',
-        new User(2,'Fritz', 'Mair', 'test@test.at', 'secret', 'https://i.pinimg.com/originals/ba/d4/5a/bad45a40fa6e153ef8d1599ba875102c.png'),
-        false)
-    ];
-    this.entries = [
-      new Entrie(
-        1,
-        new User(3,'Susi', 'Huber', 'test@test.at', 'secret', 'https://i.pi'), 1,'Titel Entrie 1', 'content'),
-      new Entrie(
-        2, new User(4,'Susi', 'Huber', 'test@test.at', 'secret', 'https://i.pi'),
-        2,'Titel Entrie', 'content'),
-    ]
+  getAllPadlets(): Observable<Array<Padlet>>{
+    return this.http.get<Array<Padlet>>(`${this.api}/padlets`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
-  getAllPadlets(){
-    return this.padlets;
+  getSinglePadlet(id: number): Observable<Padlet> {
+    return this.http.get<Padlet>(`${this.api}/padlets/${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
-  getSinglePadlet(id:number) : Padlet {
-    return <Padlet>this.padlets.find(padlet=> padlet.id == id);
+  createPadlet(padlet: Padlet): Observable<any> {
+    return this.http.post(`${this.api}/padlets`, padlet)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
-  getAllEntries(id:number) : Entrie[]{
-    return <Array<Entrie>>this.entries.filter(entrie=>entrie.padlet_id == id);
+  updatePadlet(padlet: Padlet): Observable<any> {
+    return this.http.put(`${this.api}/padlets/${padlet.id}`, padlet)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
+  removePadlet(id: number): Observable<any> {
+    return this.http.delete(`${this.api}/padlets/${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
+  getUserName(id: string){
+    return this.http.get(`${this.api}/padlets/username/${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
+
+  private errorHandler(error: Error | any): Observable<any> {
+    return throwError(error);
   }
 }

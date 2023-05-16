@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Padlet} from "../shared/padlet";
+import {PadletService} from "../shared/padlet.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'a.bs-padlet-list-item',
@@ -10,10 +12,19 @@ import {Padlet} from "../shared/padlet";
 export class PadletListItemComponent implements OnInit{
   @Input() padlet: Padlet | undefined
 
-  constructor() {
+  constructor(
+    private ps: PadletService,
+    private route: ActivatedRoute,
+    private router: Router) {
   }
 
   ngOnInit(){}
+
+  getUserName(id: number){
+    this.ps.getUserName(id)
+      .subscribe((res:any) => this.router.navigate(['../'], { relativeTo:
+        this.route }));
+  }
 
 
 }

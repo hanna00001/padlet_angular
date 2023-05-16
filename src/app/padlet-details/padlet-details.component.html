@@ -1,7 +1,12 @@
-<div class="header">{{ padlet?.name }}</div>
+<div class="header">{{ padlet.name }}</div>
 
-<a *ngFor="let entrie of entries" class="item">
+<!--a *ngFor="let entrie of entries" class="item">
   <div class="header">{{ entrie?.title }}</div>
-</a>
+</a-->
 
 <button [routerLink] = "'/padlets'" class="ui red button">Zurück zur Padletliste</button>
+
+<button class="ui tiny red labeled icon button"
+        (click)="removePadlet()">
+  <i class="remove icon"></i> Padlet löschen
+</button>
