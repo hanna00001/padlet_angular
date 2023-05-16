@@ -1,0 +1,6 @@
+<div class="ui middle aligned selection divided list">
+  <a *ngFor="let padlet of padlets" class="item bs-padlet-list-item"
+     [padlet]="padlet" [routerLink]="padlet.id.toString()">
+  </a>
+
+</div>

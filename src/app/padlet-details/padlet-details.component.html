@@ -1,0 +1,7 @@
+<div class="header">{{ padlet?.name }}</div>
+
+<a *ngFor="let entrie of entries" class="item">
+  <div class="header">{{ entrie?.title }}</div>
+</a>
+
+<button [routerLink] = "'/padlets'" class="ui red button">Zurück zur Padletliste</button>

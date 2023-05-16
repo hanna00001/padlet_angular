@@ -1,0 +1,6 @@
+<div class="content">
+  <div class="header">{{ padlet?.name }}</div>
+  <div class="metadata" *ngIf="padlet?.is_public == true">öffentlich</div>
+  <div class="metadata" *ngIf="padlet?.is_public == false">privat</div>
+  <div class="extra">Ersteller*in: {{padlet?.user_id?.firstName}} {{padlet?.user_id?.lastName}}</div>
+</div>
