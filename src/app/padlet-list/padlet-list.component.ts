@@ -13,8 +13,6 @@ export class PadletListComponent implements OnInit{
 
   padlets: Padlet[] = [];
 
-  @Output() showDetailsEvent = new EventEmitter<Padlet>;
-
   constructor(private p: PadletService) {
   }
 
@@ -22,8 +20,5 @@ export class PadletListComponent implements OnInit{
     this.p.getAllPadlets().subscribe(res => this.padlets = res);
   }
 
-  showDetails(padlet:Padlet){
-    this.showDetailsEvent.emit(padlet);
-  }
 
 }

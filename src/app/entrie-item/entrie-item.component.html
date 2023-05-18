@@ -1,1 +1,41 @@
-<p>entrie-item works!</p>
+<div class="content">
+<div class="ui top attached label teal">
+  <h4 class=""> {{ entrie?.title }}</h4>
+</div>
+  <p>{{ entrie?.content }}</p>
+
+  <div class="ui image label tiny">
+    <img src="https://i.pinimg.com/originals/ba/d4/5a/bad45a40fa6e153ef8d1599ba875102c.png">
+    {{username}}
+  </div>
+<br>
+  <div *ngIf="comments[0] || ratings[0]" class="ui divider"></div>
+<p *ngIf="ratings[0]">
+  Bewertungen:
+</p>
+<div class="ui list" *ngFor="let rating of ratings">
+  <div class="item">
+    <img class="ui avatar image" src="https://i.pinimg.com/originals/ba/d4/5a/bad45a40fa6e153ef8d1599ba875102c.png">
+    <div class="content">
+      <p class="header">User {{rating?.user_id}}</p>
+      <div class="ui star rating">
+        <i *ngFor="let r of getRating(rating.rating)" class="yellow star icon"></i>
+      </div>
+      </div>
+  </div>
+</div>
+
+<p *ngIf="comments[0]">
+  Kommentare
+</p>
+<div class="ui list" *ngFor="let comment of comments">
+  <div class="item">
+    <img class="ui avatar image" src="https://i.pinimg.com/originals/ba/d4/5a/bad45a40fa6e153ef8d1599ba875102c.png">
+    <div class="content">
+      <p class="header">User {{comment?.user_id}}</p>
+      <p class="description">{{comment?.comment}}</p>
+    </div>
+  </div>
+</div>
+
+</div>

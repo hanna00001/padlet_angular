@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import {Padlet, User} from "./padlet";
 import {catchError, Observable, retry, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {Entrie} from "./entrie";
+import {Rating} from "./rating";
+import {Comment} from "./comment";
 
 @Injectable(
 )
@@ -36,11 +39,25 @@ export class PadletService {
       .pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 
-  getUserName(id: string){
+  getUserName(id: string | undefined):Observable<any>{
     return this.http.get(`${this.api}/padlets/username/${id}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 
+  getAllEntries(id:number):Observable<Entrie[]>{
+    return this.http.get<Entrie[]>(`${this.api}/padlets/${id}/entries`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
+  getAllRatings(padletid:number, entrieid:number|undefined):Observable<Rating[]>{
+    return this.http.get<Rating[]>(`${this.api}/padlets/${padletid}/entries/${entrieid}/ratings`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
+  getAllComments(padletid:number, entrieid:number|undefined):Observable<Comment[]>{
+    return this.http.get<Comment[]>(`${this.api}/padlets/${padletid}/entries/${entrieid}/comments`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
 
   private errorHandler(error: Error | any): Observable<any> {
     return throwError(error);

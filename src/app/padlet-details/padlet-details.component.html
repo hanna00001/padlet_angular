@@ -1,12 +1,34 @@
-<div class="header">{{ padlet.name }}</div>
+<br>
+<div class="">
+  <h1>{{ padlet.name }}</h1>
+  von
+  <div class="ui image label">
+    <img src="https://i.pinimg.com/originals/ba/d4/5a/bad45a40fa6e153ef8d1599ba875102c.png">
+    {{username}}
+  </div>
+</div>
+<br>
 
-<!--a *ngFor="let entrie of entries" class="item">
-  <div class="header">{{ entrie?.title }}</div>
-</a-->
+
+<div class="ui grid container cards">
+
+  <div *ngFor="let entrie of entries" class="item bs-entrie-item ui card four wide column" [entrie]="entrie"></div>
+  <div class="ui card four wide column">
+    <div class="content "> <button class="fluid ui button icon"><i class="plus icon"></i> Neuen Eintrag erstellen</button></div>
+  </div>
+
+</div>
+
+<br><br>
+
+  <button class="ui tiny red icon button right floated"
+          (click)="removePadlet()">
+    <i class="trash icon"></i>
+  </button>
+
+  <button class="ui tiny yellow icon button right floated">
+    <i class="write icon"></i>
+  </button>
 
 <button [routerLink] = "'/padlets'" class="ui red button">Zurück zur Padletliste</button>
 
-<button class="ui tiny red labeled icon button"
-        (click)="removePadlet()">
-  <i class="remove icon"></i> Padlet löschen
-</button>

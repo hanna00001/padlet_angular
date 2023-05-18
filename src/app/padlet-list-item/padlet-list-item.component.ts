@@ -20,11 +20,12 @@ export class PadletListItemComponent implements OnInit{
 
   ngOnInit(){}
 
-  getUserName(id: number){
-    this.ps.getUserName(id)
-      .subscribe((res:any) => this.router.navigate(['../'], { relativeTo:
-        this.route }));
-  }
+  /*getUserName(id: number | undefined){
+      this.ps.getUserName(id)
+        .subscribe((res:any) => this.router.navigate(['../'], { relativeTo:
+          this.route }));
+
+  }*/
 
 
 }

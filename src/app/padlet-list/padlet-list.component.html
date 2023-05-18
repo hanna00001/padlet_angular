@@ -1,4 +1,4 @@
-<div class="ui middle aligned selection divided list">
+<div class="ui middle aligned selection list">
   <a *ngFor="let padlet of padlets" class="item bs-padlet-list-item"
      [padlet]="padlet" [routerLink]="padlet.id.toString()">
   </a>
@@ -6,6 +6,6 @@
   <div *ngIf="!padlets" class="ui active dimmer">
     <div class="ui large text loader">Daten werden geladen...</div>
   </div>
-  <p *ngIf="padlets && !padlets.length">Es wurden noch keine Padlets erstellt.</p>
+  <p *ngIf="padlets && !padlets.length">Es wurden noch keine Padlets erstellt...</p>
 
 </div>
