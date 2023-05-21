@@ -24,16 +24,19 @@ export class PadletDetailsComponent implements OnInit{
     private ps: PadletService,
     private route: ActivatedRoute,
     private router: Router,
-  public authService: AuthenticationService) {
+    public authService: AuthenticationService) {
   }
 
   ngOnInit(){
     const params = this.route.snapshot.params;
     this.ps.getSinglePadlet(params['id']).subscribe((p:Padlet) => this.padlet = p);
     this.ps.getAllEntries(params['id']).subscribe(res => this.entries = res);
-    this.ps.getUserName(this.padlet?.user_id.toString()).subscribe(res => this.username = res);
+    this.getUserName();
   }
 
+  getUserName(){
+    this.ps.getUserName(this.padlet?.user_id.toString()).subscribe(res => this.username = res);
+  }
 
   removePadlet(){
     if (confirm('Padlet wirklich löschen?')) {

@@ -1,5 +1,5 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {Entrie, Padlet} from "../shared/entrie";
+import {Component, Input, OnInit} from '@angular/core';
+import {Entrie} from "../shared/entrie";
 import {Rating} from "../shared/rating";
 import {Comment} from "../shared/comment";
 import {PadletService} from "../shared/padlet.service";
@@ -32,13 +32,14 @@ export class EntrieItemComponent implements OnInit{
     const params = this.route.snapshot.params;
     this.ps.getAllRatings(params['id'], this.entrie?.id).subscribe(res=>this.ratings = res);
     this.ps.getAllComments(params['id'], this.entrie?.id).subscribe(res=>this.comments = res);
-    this.ps.getUserName(this.entrie?.user_id.toString()).subscribe(res => this.username = res);
-
+    this.getUsername(this.entrie?.user_id)
   }
 
-  getRating(num:number){
-    return new Array(num);
+  getUsername(id: number | undefined){
+    this.ps.getUserName(id?.toString()).subscribe(res => this.username = res);
   }
+
+
 
   removeEntrie(){
     if (confirm('Entrie wirklich löschen?')) {
@@ -49,9 +50,14 @@ export class EntrieItemComponent implements OnInit{
     }
   }
 
-  checkIfUserHasAlreadyRated(id: number){
-
+  checkIfUserHasAlreadyRated(){
+    let sessionId: string = <string>sessionStorage.getItem("userId");
+    if(this.ps.checkIfUserHasAlreadyRated(this.entrie?.id, parseInt(sessionId))){
+      return false;
+    }
+    else {
+      return true;
+    }
   }
-
 
 }

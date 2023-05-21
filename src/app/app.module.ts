@@ -8,7 +8,7 @@ import { PadletDetailsComponent } from './padlet-details/padlet-details.componen
 import { EntrieItemComponent } from './entrie-item/entrie-item.component';
 import {PadletService} from "./shared/padlet.service";
 import {AppRoutingModule} from "./app-routing.module";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { PadletFormComponent } from './padlet-form/padlet-form.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { EntrieFormComponent } from './entrie-form/entrie-form.component';
@@ -16,6 +16,9 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
 import { RatingFormComponent } from './rating-form/rating-form.component';
 import { LoginComponent } from './login/login.component';
 import {AuthenticationService} from "./shared/authentication.service";
+import {TokenInterceptorService} from "./shared/token-interceptor.service";
+import { RatingItemComponent } from './rating-item/rating-item.component';
+import { CommentItemComponent } from './comment-item/comment-item.component';
 
 @NgModule({
   declarations: [
@@ -29,11 +32,18 @@ import {AuthenticationService} from "./shared/authentication.service";
     CommentFormComponent,
     RatingFormComponent,
     LoginComponent,
+    RatingItemComponent,
+    CommentItemComponent,
   ],
   imports: [
     BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule
   ],
-  providers: [PadletService, AuthenticationService],
+  providers: [PadletService, AuthenticationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

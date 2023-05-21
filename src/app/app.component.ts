@@ -13,11 +13,11 @@ export class AppComponent {
   constructor(private authService: AuthenticationService) {
   }
 
-  isLoggedIn() {
+  isLoggedIn() :boolean {
     return this.authService.isLoggedIn();
   }
 
-  getLoginLabel(){
+  getLoginLabel() : string{
     if(this.isLoggedIn()){
       return "Logout";
     } else {

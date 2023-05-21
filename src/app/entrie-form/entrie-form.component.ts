@@ -59,7 +59,8 @@ export class EntrieFormComponent implements OnInit{
         });
       });
     } else {
-      entrie.user_id = 2; // testing
+      let sessionId: string = <string>sessionStorage.getItem("userId");
+      entrie.user_id = parseInt(sessionId);
       this.ps.createEntrie(id, entrie).subscribe(res => {
         this.entrie = EntrieFactory.empty();
         this.entrieForm.reset(EntrieFactory.empty());

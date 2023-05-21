@@ -79,6 +79,11 @@ export class PadletService {
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
+  checkIfUserHasAlreadyRated(entrieid:number|undefined, userid:number|undefined) : Observable<boolean>{
+    return this.http.get<boolean>(`${this.api}/entries/${entrieid}/ratings/${userid}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
   getAllComments(padletid:number, entrieid:number|undefined):Observable<Comment[]>{
     return this.http.get<Comment[]>(`${this.api}/padlets/${padletid}/entries/${entrieid}/comments`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))

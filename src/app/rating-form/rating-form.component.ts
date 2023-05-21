@@ -44,7 +44,8 @@ export class RatingFormComponent {
 
   submitForm(){
     const rating: Rating = RatingFactory.fromObject(this.ratingForm.value);
-    rating.user_id = 1; // testing
+    let sessionId: string = <string>sessionStorage.getItem("userId");
+    rating.user_id = parseInt(sessionId);
     rating.entrie_id = this.entrie?.id
     this.ps.createRating(this.entrie?.padlet_id, this.entrie?.id, rating).subscribe(res => {
       this.rating = RatingFactory.empty();

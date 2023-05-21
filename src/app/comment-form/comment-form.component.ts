@@ -45,7 +45,9 @@ export class CommentFormComponent {
 
   submitForm(){
     const comment: Comment = CommentFactory.fromObject(this.commentForm.value);
-      comment.user_id = 1; // testing
+
+    let sessionId: string = <string>sessionStorage.getItem("userId");
+    comment.user_id = parseInt(sessionId);
       comment.entrie_id = this.entrie?.id
       this.ps.createComment(this.entrie?.padlet_id, this.entrie?.id, comment).subscribe(res => {
         this.comment = CommentFactory.empty();

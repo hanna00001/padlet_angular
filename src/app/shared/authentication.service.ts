@@ -43,7 +43,7 @@ export class AuthenticationService {
     console.log("logged out");
   }
 
-  public isLoggedIn() {
+  public isLoggedIn() : boolean{
     if (sessionStorage.getItem("token")) {
       let token: string = <string>sessionStorage.getItem("token");
       const decodedToken = jwt_decode(token) as Token;
@@ -59,7 +59,7 @@ export class AuthenticationService {
       return false;
     }
   }
-  isLoggedOut() {
+  isLoggedOut() : boolean {
     return !this.isLoggedIn();
   }
 

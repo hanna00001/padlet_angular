@@ -13,6 +13,8 @@ import {AuthenticationService} from "../shared/authentication.service";
 export class PadletListItemComponent implements OnInit{
   @Input() padlet: Padlet | undefined
 
+  username: string | undefined = "";
+
   constructor(
     private ps: PadletService,
     private route: ActivatedRoute,
@@ -20,14 +22,10 @@ export class PadletListItemComponent implements OnInit{
   public authService: AuthenticationService) {
   }
 
-  ngOnInit(){}
+  ngOnInit(){
+    this.ps.getUserName(this.padlet?.user_id.toString()).subscribe(res => this.username = res);
+  }
 
-  /*getUserName(id: number | undefined){
-      this.ps.getUserName(id)
-        .subscribe((res:any) => this.router.navigate(['../'], { relativeTo:
-          this.route }));
-
-  }*/
 
 
 }
