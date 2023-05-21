@@ -1,0 +1,19 @@
+<br>
+<h5 *ngIf="isUpdatingEntrie">Eintrag bearbeiten</h5>
+<h5 *ngIf="isUpdatingEntrie != true">Eintrag erstellen</h5>
+<form class="ui large form" [formGroup]="entrieForm" (ngSubmit)="submitForm()">
+  <input type="hidden" formControlName="id">
+  <div class="field">
+    <label>Titel</label>
+    <input formControlName="title">
+    <div *ngIf="errors['title']" class="ui negative message"> {{
+      errors['title'] }} </div>
+  </div>
+  <div class="field">
+    <label>Text</label>
+    <textarea formControlName="content"></textarea>
+    <div *ngIf="errors['content']" class="ui negative message"> {{
+      errors['content'] }} </div>
+  </div>
+  <button type="submit" class="ui button" [disabled]="entrieForm.invalid">Speichern</button>
+</form>

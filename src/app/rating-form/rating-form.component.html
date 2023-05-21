@@ -1,0 +1,10 @@
+<form class="ui mini form" [formGroup]="ratingForm" (ngSubmit)="submitForm()">
+  <div class="field">
+    <label>Rating</label>
+    <input type="number" formControlName="rating">
+    <div *ngIf="errors['rating']" class="ui negative message">{{
+      errors['rating'] }}</div>
+  </div>
+  <button type="submit" class="ui tiny labeled button right floated" [disabled]="ratingForm.invalid">Senden</button>
+</form>
+

@@ -1,0 +1,19 @@
+<h1>Padletformular</h1>
+
+<form class="ui large form" [formGroup]="padletForm" (ngSubmit)="submitForm()">
+  <input type="hidden" formControlName="id">
+  <div class="field">
+    <label>Padlet Name</label>
+    <input formControlName="name">
+    <div *ngIf="errors['name']" class="ui negative message"> {{
+      errors['name'] }} </div>
+  </div>
+  <div class="field">
+    <label>Status</label>
+    <select formControlName="is_public" id="is_public" name="is_public" [(ngModel)]="is_public">
+      <option value="1">Öffentlich</option>
+      <option value="2">Privat</option>
+    </select>
+  </div>
+  <button type="submit" class="ui button" [disabled]="padletForm.invalid">Speichern</button>
+</form>

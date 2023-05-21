@@ -1,0 +1,9 @@
+<form class="ui mini form" [formGroup]="commentForm" (ngSubmit)="submitForm()">
+  <input type="hidden" formControlName="id">
+  <div class="field">
+    <input formControlName="comment" placeholder="Neuer Kommentar">
+  </div>
+  <div *ngIf="errors['comment']" class="ui negative message"> {{
+    errors['comment'] }} </div>
+  <button type="submit" class="ui tiny labeled button right floated" [disabled]="commentForm.invalid">Senden</button>
+</form>
