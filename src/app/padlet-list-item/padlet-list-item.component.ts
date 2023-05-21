@@ -14,6 +14,9 @@ export class PadletListItemComponent implements OnInit{
   @Input() padlet: Padlet | undefined
 
   username: string | undefined = "";
+  userimage: string | undefined = "";
+  currentUrl:string = "";
+  sessionId: number | undefined;
 
   constructor(
     private ps: PadletService,
@@ -23,7 +26,11 @@ export class PadletListItemComponent implements OnInit{
   }
 
   ngOnInit(){
+    this.sessionId = parseInt(<string>sessionStorage.getItem("userId"));
+    this.currentUrl = this.router.url;
     this.ps.getUserName(this.padlet?.user_id.toString()).subscribe(res => this.username = res);
+    this.ps.getUserImage(this.padlet?.user_id.toString()).subscribe(res => this.userimage = res);
+
   }
 
 

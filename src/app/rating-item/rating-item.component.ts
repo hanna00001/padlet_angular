@@ -12,6 +12,7 @@ export class RatingItemComponent implements OnInit{
 
   @Input() rating: Rating | undefined
   username : string = "";
+  userimage : string = "";
 
   constructor(
     private ps : PadletService
@@ -24,6 +25,8 @@ export class RatingItemComponent implements OnInit{
 
   ngOnInit() {
     this.ps.getUserName(this.rating?.user_id.toString()).subscribe(res => this.username = res);
+    this.ps.getUserImage(this.rating?.user_id.toString()).subscribe(res => this.userimage = res);
+
   }
 
 }

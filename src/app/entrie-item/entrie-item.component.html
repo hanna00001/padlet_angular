@@ -5,7 +5,7 @@
   <p>{{ entrie?.content }}</p>
 
   <div class="ui image label tiny">
-    <img src="https://i.pinimg.com/originals/ba/d4/5a/bad45a40fa6e153ef8d1599ba875102c.png">
+    <img src="{{userimage}}">
     {{username}}
   </div>
   <button *ngIf="authService.isLoggedIn()" class="ui tiny yellow icon button" [routerLink]="['./', entrie?.id]">

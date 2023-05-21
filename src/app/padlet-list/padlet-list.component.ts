@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Padlet, User} from "../shared/padlet";
 import {Entrie} from "../shared/entrie";
 import {PadletService} from "../shared/padlet.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'bs-padlet-list',
@@ -13,7 +14,7 @@ export class PadletListComponent implements OnInit{
 
   padlets: Padlet[] = [];
 
-  constructor(private p: PadletService) {
+  constructor(private p: PadletService, private router: Router) {
   }
 
   ngOnInit() {

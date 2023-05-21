@@ -19,6 +19,7 @@ export class EntrieItemComponent implements OnInit{
   ratings: Rating[] = [];
   comments: Comment[] = [];
   username: string = "";
+  userimage: string = "";
 
   constructor(
     private ps: PadletService,
@@ -33,13 +34,12 @@ export class EntrieItemComponent implements OnInit{
     this.ps.getAllRatings(params['id'], this.entrie?.id).subscribe(res=>this.ratings = res);
     this.ps.getAllComments(params['id'], this.entrie?.id).subscribe(res=>this.comments = res);
     this.getUsername(this.entrie?.user_id)
+    this.ps.getUserImage(this.entrie?.user_id.toString()).subscribe(res => this.userimage = res);
   }
 
   getUsername(id: number | undefined){
     this.ps.getUserName(id?.toString()).subscribe(res => this.username = res);
   }
-
-
 
   removeEntrie(){
     if (confirm('Entrie wirklich löschen?')) {
@@ -51,13 +51,15 @@ export class EntrieItemComponent implements OnInit{
   }
 
   checkIfUserHasAlreadyRated(){
-    let sessionId: string = <string>sessionStorage.getItem("userId");
-    if(this.ps.checkIfUserHasAlreadyRated(this.entrie?.id, parseInt(sessionId))){
-      return false;
+    /*let sessionId: string = <string>sessionStorage.getItem("userId");
+    let hasRated = true;
+    ths.ps.checkIfUserHasAlreadyRated(this.entrie?.id, parseInt(sessionId))
+      .subscribe(res => hasRated = res);
+    if (hasRated == true){
+      return true
     }
-    else {
-      return true;
-    }
+    else {return false;}*/
+
   }
 
 }

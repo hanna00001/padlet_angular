@@ -1,10 +1,13 @@
-<div class="ui raised segment" *ngIf="authService.isLoggedOut() && padlet?.is_public == true || authService.isLoggedIn()">
+<div *ngIf="authService.isLoggedOut() && padlet?.is_public == true || authService.isLoggedIn()">
+<div class="ui raised segment" *ngIf="currentUrl == '/mypadlets' && padlet?.user_id == sessionId || currentUrl == '/padlets'">
   <div class="header">{{ padlet?.name }}</div>
   <div class="ui image label mini right floated">
-    <img src="https://i.pinimg.com/originals/ba/d4/5a/bad45a40fa6e153ef8d1599ba875102c.png">
+    <img src="{{userimage}}">
     {{username}}
   </div>
   <br>
   <div class="metadata" *ngIf="padlet?.is_public == true">öffentlich</div>
   <div class="metadata" *ngIf="padlet?.is_public != true">privat</div>
 </div>
+</div>
+

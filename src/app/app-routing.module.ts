@@ -8,6 +8,7 @@ import {LoginComponent} from "./login/login.component";
 const routes: Routes = [
   { path: '', redirectTo: 'padlets', pathMatch: 'full'},
   { path: 'padlets', component: PadletListComponent},
+  { path: 'mypadlets', component: PadletListComponent},
   { path: 'padlets/:id', component: PadletDetailsComponent},
   { path: 'padletsform', component: PadletFormComponent},
   { path: 'padletsform/:id', component: PadletFormComponent},

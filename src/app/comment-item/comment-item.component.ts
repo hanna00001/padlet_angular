@@ -12,6 +12,7 @@ export class CommentItemComponent {
 
   @Input() comment: Comment | undefined
   username : string = "";
+  userimage : string = "";
 
   constructor(
     private ps : PadletService
@@ -21,5 +22,7 @@ export class CommentItemComponent {
 
   ngOnInit() {
     this.ps.getUserName(this.comment?.user_id.toString()).subscribe(res => this.username = res);
+    this.ps.getUserImage(this.comment?.user_id.toString()).subscribe(res => this.userimage = res);
+
   }
 }

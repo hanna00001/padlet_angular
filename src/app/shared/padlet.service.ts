@@ -44,6 +44,11 @@ export class PadletService {
       .pipe(retry(3)).pipe(catchError(this.errorHandler));
   }
 
+  getUserImage(id: string | undefined):Observable<any>{
+    return this.http.get(`${this.api}/padlets/userimage/${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
   getAllEntries(id:number):Observable<Entrie[]>{
     return this.http.get<Entrie[]>(`${this.api}/padlets/${id}/entries`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
