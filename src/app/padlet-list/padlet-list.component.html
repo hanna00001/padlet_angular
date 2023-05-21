@@ -1,3 +1,7 @@
+<div class="ui raised segment">
+  <button class="fluid ui button icon" [routerLink]="['../padletsform']"><i class="plus icon"></i> Neues Padlet erstellen</button>
+</div>
+
 <div class="ui middle aligned selection list">
   <a *ngFor="let padlet of padlets" class="item bs-padlet-list-item"
      [padlet]="padlet" [routerLink]="padlet.id.toString()">

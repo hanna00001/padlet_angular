@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Padlet} from "./shared/padlet";
 import {HttpClient} from "@angular/common/http";
+import {AuthenticationService} from "./shared/authentication.service";
 
 @Component({
   selector: 'bs-root',
@@ -9,20 +10,19 @@ import {HttpClient} from "@angular/common/http";
 })
 export class AppComponent {
 
-  listOn = true;
-  detailsOn = false;
-
-  padlet : Padlet |undefined;
-
-  showList() {
-    this.listOn = true;
-    this.detailsOn = false;
-  }
-  showDetails(padlet: Padlet) {
-    this.padlet = padlet;
-    this.listOn = false;
-    this.detailsOn = true;
+  constructor(private authService: AuthenticationService) {
   }
 
-  title = 'padlet23';
+  isLoggedIn() {
+    return this.authService.isLoggedIn();
+  }
+
+  getLoginLabel(){
+    if(this.isLoggedIn()){
+      return "Logout";
+    } else {
+      return "Login";
+    }
+  }
+
 }

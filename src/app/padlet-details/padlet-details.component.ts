@@ -5,6 +5,7 @@ import {PadletService} from "../shared/padlet.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PadletFactory} from "../shared/padlet-factory";
 import {Rating} from "../shared/rating";
+import {AuthenticationService} from "../shared/authentication.service";
 
 @Component({
   selector: 'bs-padlet-details',
@@ -22,7 +23,8 @@ export class PadletDetailsComponent implements OnInit{
   constructor(
     private ps: PadletService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+  public authService: AuthenticationService) {
   }
 
   ngOnInit(){
@@ -38,6 +40,16 @@ export class PadletDetailsComponent implements OnInit{
       this.ps.removePadlet(this.padlet.id)
         .subscribe((res:any) => this.router.navigate(['../'], { relativeTo:
           this.route }));
+    }
+  }
+
+  isOwner(){
+    let id: string = <string>sessionStorage.getItem("userId");
+    if (this.padlet.user_id.toString() == id){
+      return true;
+    }
+    else {
+      return false;
     }
   }
 

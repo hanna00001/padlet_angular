@@ -1,34 +1,37 @@
-<br>
-<div class="">
-  <h1>{{ padlet.name }}</h1>
-  von
-  <div class="ui image label">
-    <img src="https://i.pinimg.com/originals/ba/d4/5a/bad45a40fa6e153ef8d1599ba875102c.png">
-    {{username}}
-  </div>
-</div>
-<br>
+<div class="ui grid">
+  <div class="row">
+    <div class="thirteen wide column">
+  <br>
+    <h1>{{ padlet.name }}</h1>
+    von
+    <div class="ui image label">
+      <img src="https://i.pinimg.com/originals/ba/d4/5a/bad45a40fa6e153ef8d1599ba875102c.png">
+      {{username}}
+    </div>
+  <br><br>
 
+  <div class="ui grid container cards">
 
-<div class="ui grid container cards">
+    <div *ngFor="let entrie of entries" class="item bs-entrie-item ui card five wide column" [entrie]="entrie"></div>
 
-  <div *ngFor="let entrie of entries" class="item bs-entrie-item ui card four wide column" [entrie]="entrie"></div>
-  <div class="ui card four wide column">
-    <div class="content "> <button class="fluid ui button icon"><i class="plus icon"></i> Neuen Eintrag erstellen</button></div>
-  </div>
-
-</div>
-
+  </div><br><br>
+    </div>
+    <div class="three wide column">
+      <br>
+      <button *ngIf="isOwner()" class="ui tiny yellow icon label button" [routerLink]="['../../padletsform',padlet.id]">
+        <i class="write icon"></i>  Padlet bearbeiten
+      </button><br><br>
+      <button *ngIf="isOwner()" class="ui tiny red icon label button"
+              (click)="removePadlet()">
+        <i class="trash icon"></i>  Padlet löschen
+      </button>
 <br><br>
+      <button [routerLink] = "'/padlets'" class="ui tiny grey icon label button">
+        <i class="arrow alternate circle right icon"></i>  Zurück zur Übersicht</button>
+      <br>
+      <div class="item bs-entrie-form" *ngIf="authService.isLoggedIn()">
 
-  <button class="ui tiny red icon button right floated"
-          (click)="removePadlet()">
-    <i class="trash icon"></i>
-  </button>
-
-  <button class="ui tiny yellow icon button right floated">
-    <i class="write icon"></i>
-  </button>
-
-<button [routerLink] = "'/padlets'" class="ui red button">Zurück zur Padletliste</button>
-
+      </div>
+    </div>
+    </div>
+</div>

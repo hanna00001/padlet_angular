@@ -49,13 +49,43 @@ export class PadletService {
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
+  getEntryById(id:number):Observable<Entrie>{
+    return this.http.get<Entrie>(`${this.api}/entries/${id}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
+  createEntrie(id:number, entrie:Entrie):Observable<any>{
+    return this.http.post(`${this.api}/padlets/${id}/entries`, entrie)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
+  updateEntrie(id:number, entrie:Entrie):Observable<any>{
+    return this.http.put(`${this.api}/padlets/${id}/entries/${entrie.id}`, entrie)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
+  removeEntrie(id:number | undefined, entrieid: number | undefined): Observable<any>{
+    return this.http.delete(`${this.api}/padlets/${id}/entries/${entrieid}`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler));
+  }
+
   getAllRatings(padletid:number, entrieid:number|undefined):Observable<Rating[]>{
     return this.http.get<Rating[]>(`${this.api}/padlets/${padletid}/entries/${entrieid}/ratings`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 
+  createRating(padletid:number |undefined, entrieid:number|undefined, rating: Rating):Observable<any>{
+    return this.http.post(`${this.api}/padlets/${padletid}/entries/${entrieid}/ratings`, rating)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
   getAllComments(padletid:number, entrieid:number|undefined):Observable<Comment[]>{
     return this.http.get<Comment[]>(`${this.api}/padlets/${padletid}/entries/${entrieid}/comments`)
+      .pipe(retry(3)).pipe(catchError(this.errorHandler))
+  }
+
+  createComment(padletid:number |undefined, entrieid:number|undefined, comment: Comment):Observable<any>{
+    return this.http.post(`${this.api}/padlets/${padletid}/entries/${entrieid}/comments`, comment)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
 

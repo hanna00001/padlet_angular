@@ -1,9 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Entrie, Padlet} from "../shared/entrie";
 import {Rating} from "../shared/rating";
 import {Comment} from "../shared/comment";
 import {PadletService} from "../shared/padlet.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {AuthenticationService} from "../shared/authentication.service";
 
 @Component({
   selector: 'div.bs-entrie-item',
@@ -22,7 +23,9 @@ export class EntrieItemComponent implements OnInit{
   constructor(
     private ps: PadletService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    public authService: AuthenticationService) {
+
   }
 
   ngOnInit() {
@@ -36,5 +39,19 @@ export class EntrieItemComponent implements OnInit{
   getRating(num:number){
     return new Array(num);
   }
+
+  removeEntrie(){
+    if (confirm('Entrie wirklich löschen?')) {
+      this.ps.removeEntrie(this.entrie?.padlet_id, this.entrie?.id)
+        .subscribe((res:any) => this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/padlets',this.entrie?.padlet_id ]); // Seite neu laden
+        }));
+    }
+  }
+
+  checkIfUserHasAlreadyRated(id: number){
+
+  }
+
 
 }

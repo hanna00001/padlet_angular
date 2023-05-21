@@ -7,8 +7,8 @@ export class Rating {
 
   constructor(
     public id: number,
-    public user_id: User,
-    public entry_id: Entrie,
+    public user_id: number,
+    public entrie_id: number | undefined,
     public rating: number
   ) {
   }

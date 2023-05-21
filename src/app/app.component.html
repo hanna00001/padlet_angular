@@ -2,15 +2,12 @@
   <a class="item" routerLink="padlets" routerLinkActive="active">
     Alle Padlets
   </a>
-  <a class="item" routerLink="mypadlets" routerLinkActive="active">
+  <a *ngIf="isLoggedIn()" class="item" routerLink="mypadlets" routerLinkActive="active">
     Meine Padlets
-  </a>
-  <a class="item" routerLink="padletform" routerLinkActive="active">
-    Padlet erstellen
   </a>
   <div class="right menu">
     <a class="ui item" routerLink="login" routerLinkActive="active">
-      LogIn
+      {{getLoginLabel()}}
     </a>
   </div>
 </div>
