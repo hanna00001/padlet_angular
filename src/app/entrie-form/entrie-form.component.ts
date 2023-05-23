@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Padlet} from "../shared/padlet";
 import {Entrie} from "../shared/entrie";
 import {PadletFormErrorMessages} from "../padlet-form/padlet-form-error-messages";
+import {EntrieService} from "../shared/entrie.service";
 
 @Component({
   selector: 'div.bs-entrie-form',
@@ -21,7 +22,7 @@ export class EntrieFormComponent implements OnInit{
   isUpdatingEntrie = false;
 
   constructor(private fb: FormBuilder,
-              private ps: PadletService,
+              private es: EntrieService,
               private route: ActivatedRoute,
               private router: Router) {
     this.entrieForm = this.fb.group({});
@@ -31,7 +32,7 @@ export class EntrieFormComponent implements OnInit{
     const id = this.route.snapshot.params["entrieid"];
     if (id){
       this.isUpdatingEntrie = true
-      this.ps.getEntryById(id).subscribe(entrie => {
+      this.es.getEntryById(id).subscribe(entrie => {
         this.entrie = entrie;
         this.initEntrie();
       });
@@ -53,7 +54,7 @@ export class EntrieFormComponent implements OnInit{
     const id = this.route.snapshot.params["id"];
     const entrie: Entrie = EntrieFactory.fromObject(this.entrieForm.value);
     if(this.isUpdatingEntrie){
-      this.ps.updateEntrie(id, entrie).subscribe(res=>{
+      this.es.updateEntrie(id, entrie).subscribe(res=>{
         this.router.navigate([".."],{
           relativeTo: this.route
         });
@@ -61,7 +62,7 @@ export class EntrieFormComponent implements OnInit{
     } else {
       let sessionId: string = <string>sessionStorage.getItem("userId");
       entrie.user_id = parseInt(sessionId);
-      this.ps.createEntrie(id, entrie).subscribe(res => {
+      this.es.createEntrie(id, entrie).subscribe(res => {
         this.entrie = EntrieFactory.empty();
         this.entrieForm.reset(EntrieFactory.empty());
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {

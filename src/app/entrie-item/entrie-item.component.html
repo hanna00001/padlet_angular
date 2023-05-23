@@ -5,8 +5,8 @@
   <p>{{ entrie?.content }}</p>
 
   <div class="ui image label tiny">
-    <img src="{{userimage}}">
-    {{username}}
+    <img src="{{user.image}}">
+    {{user.firstName}} {{user.lastName}}
   </div>
   <button *ngIf="authService.isLoggedIn()" class="ui tiny yellow icon button" [routerLink]="['./', entrie?.id]">
     <i class="write icon"></i>
@@ -20,10 +20,12 @@
   <p *ngIf="ratings[0]">
   Bewertungen:
 </p>
+
 <div class="ui list bs-rating-item" *ngFor="let rating of ratings" [rating]="rating"> </div>
   <div *ngIf="authService.isLoggedIn()">
-    <div *ngIf="checkIfUserHasAlreadyRated()" class="bs-rating-form" [entrie]="entrie"></div>
+    <div class="bs-rating-form" [entrie]="entrie"></div>
   </div>
+
 
 <p *ngIf="comments[0]">
   Kommentare

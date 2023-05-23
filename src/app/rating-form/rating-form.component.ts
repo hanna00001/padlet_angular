@@ -6,6 +6,7 @@ import {PadletService} from "../shared/padlet.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Rating} from "../shared/rating";
 import {PadletFormErrorMessages} from "../padlet-form/padlet-form-error-messages";
+import {RatingService} from "../shared/rating.service";
 
 @Component({
   selector: 'div.bs-rating-form',
@@ -23,7 +24,7 @@ export class RatingFormComponent {
 
   constructor(
     private fb: FormBuilder,
-    private ps: PadletService,
+    private rs: RatingService,
     private route: ActivatedRoute,
     private router: Router
   ) {
@@ -47,7 +48,7 @@ export class RatingFormComponent {
     let sessionId: string = <string>sessionStorage.getItem("userId");
     rating.user_id = parseInt(sessionId);
     rating.entrie_id = this.entrie?.id
-    this.ps.createRating(this.entrie?.padlet_id, this.entrie?.id, rating).subscribe(res => {
+    this.rs.createRating(this.entrie?.padlet_id, this.entrie?.id, rating).subscribe(res => {
       this.rating = RatingFactory.empty();
       this.ratingForm.reset(RatingFactory.empty());
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {

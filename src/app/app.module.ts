@@ -19,6 +19,10 @@ import {AuthenticationService} from "./shared/authentication.service";
 import {TokenInterceptorService} from "./shared/token-interceptor.service";
 import { RatingItemComponent } from './rating-item/rating-item.component';
 import { CommentItemComponent } from './comment-item/comment-item.component';
+import {UserService} from "./shared/user.service";
+import {EntrieService} from "./shared/entrie.service";
+import {RatingService} from "./shared/rating.service";
+import {CommentService} from "./shared/comment.service";
 
 @NgModule({
   declarations: [
@@ -38,7 +42,7 @@ import { CommentItemComponent } from './comment-item/comment-item.component';
   imports: [
     BrowserModule, AppRoutingModule, HttpClientModule, ReactiveFormsModule
   ],
-  providers: [PadletService, AuthenticationService,
+  providers: [PadletService, UserService, EntrieService, RatingService, CommentService, AuthenticationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

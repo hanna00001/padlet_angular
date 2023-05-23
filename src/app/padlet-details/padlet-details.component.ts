@@ -6,6 +6,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {PadletFactory} from "../shared/padlet-factory";
 import {Rating} from "../shared/rating";
 import {AuthenticationService} from "../shared/authentication.service";
+import {UserService} from "../shared/user.service";
+import {UserFactory} from "../shared/user-factory";
+import {EntrieService} from "../shared/entrie.service";
 
 @Component({
   selector: 'bs-padlet-details',
@@ -17,11 +20,12 @@ export class PadletDetailsComponent implements OnInit{
 
   padlet: Padlet = PadletFactory.empty();
   entries: Entrie[] = [];
-  ratings: Rating[] = [];
-  username: string = "";
+  user: User = UserFactory.empty();
 
   constructor(
     private ps: PadletService,
+    private us: UserService,
+    private es: EntrieService,
     private route: ActivatedRoute,
     private router: Router,
     public authService: AuthenticationService) {
@@ -29,13 +33,12 @@ export class PadletDetailsComponent implements OnInit{
 
   ngOnInit(){
     const params = this.route.snapshot.params;
-    this.ps.getSinglePadlet(params['id']).subscribe((p:Padlet) => this.padlet = p);
-    this.ps.getAllEntries(params['id']).subscribe(res => this.entries = res);
-    this.getUserName();
-  }
+    this.ps.getSinglePadlet(params['id']).subscribe((p:Padlet) => {
+      this.padlet = p;
+      this.us.getSingleUser(this.padlet.user_id).subscribe((u:User)=> this.user = u);
+      this.es.getAllEntries(params['id']).subscribe(res => this.entries = res);
+    });
 
-  getUserName(){
-    this.ps.getUserName(this.padlet?.user_id.toString()).subscribe(res => this.username = res);
   }
 
   removePadlet(){

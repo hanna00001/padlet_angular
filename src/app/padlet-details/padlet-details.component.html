@@ -5,8 +5,8 @@
     <h1>{{ padlet.name }}</h1>
     von
     <div class="ui image label">
-      <img src="https://i.pinimg.com/originals/ba/d4/5a/bad45a40fa6e153ef8d1599ba875102c.png">
-      {{username}}
+      <img src="{{user.image}}">
+      {{user.firstName}} {{user.lastName}}
     </div>
   <br><br>
 
@@ -18,10 +18,10 @@
     </div>
     <div class="three wide column">
       <br>
-      <button *ngIf="isOwner()" class="ui tiny yellow icon label button" [routerLink]="['../../padletsform',padlet.id]">
+      <button *ngIf="isOwner() || authService.isLoggedIn()" class="ui tiny yellow icon label button" [routerLink]="['../../padletsform',padlet.id]">
         <i class="write icon"></i>  Padlet bearbeiten
       </button><br><br>
-      <button *ngIf="isOwner()" class="ui tiny red icon label button"
+      <button *ngIf="isOwner() || authService.isLoggedIn()" class="ui tiny red icon label button"
               (click)="removePadlet()">
         <i class="trash icon"></i>  Padlet löschen
       </button>

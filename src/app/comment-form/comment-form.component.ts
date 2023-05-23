@@ -3,9 +3,9 @@ import {Entrie} from "../shared/entrie";
 import {Comment} from "../shared/comment";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CommentFactory} from "../shared/comment-factory";
-import {PadletService} from "../shared/padlet.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PadletFormErrorMessages} from "../padlet-form/padlet-form-error-messages";
+import {CommentService} from "../shared/comment.service";
 
 @Component({
   selector: 'div.bs-comment-form',
@@ -23,9 +23,9 @@ export class CommentFormComponent {
 
   constructor(
     private fb: FormBuilder,
-    private ps: PadletService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cs: CommentService
   ) {
     this.commentForm = this.fb.group({});
   }
@@ -49,7 +49,7 @@ export class CommentFormComponent {
     let sessionId: string = <string>sessionStorage.getItem("userId");
     comment.user_id = parseInt(sessionId);
       comment.entrie_id = this.entrie?.id
-      this.ps.createComment(this.entrie?.padlet_id, this.entrie?.id, comment).subscribe(res => {
+      this.cs.createComment(this.entrie?.padlet_id, this.entrie?.id, comment).subscribe(res => {
         this.comment = CommentFactory.empty();
         this.commentForm.reset(CommentFactory.empty());
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
