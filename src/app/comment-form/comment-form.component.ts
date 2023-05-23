@@ -25,8 +25,8 @@ export class CommentFormComponent {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private cs: CommentService
-  ) {
+    private cs: CommentService)
+  {
     this.commentForm = this.fb.group({});
   }
 
@@ -45,7 +45,6 @@ export class CommentFormComponent {
 
   submitForm(){
     const comment: Comment = CommentFactory.fromObject(this.commentForm.value);
-
     let sessionId: string = <string>sessionStorage.getItem("userId");
     comment.user_id = parseInt(sessionId);
       comment.entrie_id = this.entrie?.id
@@ -54,7 +53,7 @@ export class CommentFormComponent {
         this.commentForm.reset(CommentFactory.empty());
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate(['/padlets', this.entrie?.padlet_id]); // Seite neu laden
-        }); // Seite neu laden
+        });
       });
     }
 

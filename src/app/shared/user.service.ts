@@ -16,6 +16,7 @@ export class UserService {
     return this.http.get<Array<User>>(`${this.api}/users`).pipe(retry(3))
       .pipe(catchError(this.errorHandler));
   }
+
   getSingleUser(id: number | undefined): Observable<User> {
     return this.http.get<User>(`${this.api}/users/${id}`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))

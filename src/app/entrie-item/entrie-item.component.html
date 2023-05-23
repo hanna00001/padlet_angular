@@ -2,19 +2,24 @@
 <div class="ui top attached label teal">
   <h4 class=""> {{ entrie?.title }}</h4>
 </div>
-  <p>{{ entrie?.content }}</p>
 
   <div class="ui image label tiny">
     <img src="{{entrie?.user?.image}}">
     {{entrie?.user?.firstName}} {{entrie?.user?.lastName}}
   </div>
+  <div class="ui mini label">
+    erstellt am {{entrie?.created_at}}
+  </div>
+  <br><br>
+  <p>{{ entrie?.content }}</p>
+  <br>
+
   <button *ngIf="authService.isLoggedIn()" class="ui tiny yellow icon button" [routerLink]="['./', entrie?.id]">
     <i class="write icon"></i>
   </button>
   <button *ngIf="authService.isLoggedIn()" class="ui tiny red icon button" (click)="removeEntrie()">
     <i class="trash icon"></i>
   </button>
-<br>
   <div class="ui divider"></div>
 
   <p>
@@ -25,7 +30,6 @@
   <div *ngIf="authService.isLoggedIn()">
     <div *ngIf="!checkRated" class="bs-rating-form" [entrie]="entrie"></div>
   </div>
-
 
 <p>
   Kommentare:

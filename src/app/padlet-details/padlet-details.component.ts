@@ -22,7 +22,6 @@ export class PadletDetailsComponent implements OnInit{
 
   padlet: Padlet = PadletFactory.empty();
   entries: Entrie[] = [];
-  entrie: Entrie = EntrieFactory.empty();
 
   constructor(
     private ps: PadletService,
@@ -32,13 +31,14 @@ export class PadletDetailsComponent implements OnInit{
     private cs: CommentService,
     private route: ActivatedRoute,
     private router: Router,
-    public authService: AuthenticationService) {
-  }
+    public authService: AuthenticationService)
+    {}
 
   ngOnInit(){
     const params = this.route.snapshot.params;
     this.ps.getSinglePadlet(params['id']).subscribe((p:Padlet) => {
       this.padlet = p;
+      this.formatDate();
       this.es.getAllEntries(params['id']).subscribe(res => this.entries = res);
       this.getRatings();
       this.getComments();
@@ -85,5 +85,14 @@ export class PadletDetailsComponent implements OnInit{
       return false;
     }
   }
+
+  formatDate(){
+      const date = new Date(this.padlet.created_at);
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      this.padlet.created_at = `${day < 10 ? '0' + day : day}.${month < 10 ? '0' + month : month}.${year}`;
+  }
+
 
 }

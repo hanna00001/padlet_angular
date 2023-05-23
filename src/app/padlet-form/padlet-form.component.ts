@@ -4,7 +4,7 @@ import {PadletFactory} from "../shared/padlet-factory";
 import {PadletService} from "../shared/padlet.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Padlet} from "../shared/padlet";
-import {ErrorMessages, PadletFormErrorMessages} from "./padlet-form-error-messages";
+import { PadletFormErrorMessages} from "./padlet-form-error-messages";
 
 @Component({
   selector: 'bs-padlet-form',

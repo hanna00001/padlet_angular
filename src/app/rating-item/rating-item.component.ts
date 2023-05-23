@@ -11,8 +11,7 @@ export class RatingItemComponent implements OnInit{
 
   @Input() rating: Rating | undefined
 
-  constructor() {
-  }
+  constructor() {}
 
   getRating(num:number | undefined){
     return new Array(num);

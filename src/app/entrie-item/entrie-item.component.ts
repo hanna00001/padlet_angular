@@ -32,10 +32,10 @@ export class EntrieItemComponent implements OnInit{
     if(this.entrie){
       this.getRatingUsers();
       this.getCommentUsers();
+      this.formatDate();
     }
     this.checkIfUserHasAlreadyRated();
   }
-
 
   removeEntrie(){
     if (confirm('Entrie wirklich löschen?')) {
@@ -67,6 +67,16 @@ export class EntrieItemComponent implements OnInit{
     this.rs.checkIfUserHasAlreadyRated(this.entrie?.id, parseInt(sessionId)).subscribe(res=> {
       this.checkRated = res;
     });
+  }
+
+  formatDate(){
+    if(this.entrie){
+      const date = new Date(this.entrie.created_at);
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      this.entrie.created_at = `${day < 10 ? '0' + day : day}.${month < 10 ? '0' + month : month}.${year}`;
+    }
 
   }
 

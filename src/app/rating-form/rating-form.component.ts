@@ -2,7 +2,6 @@ import {Component, Input} from '@angular/core';
 import {Entrie} from "../shared/entrie";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {RatingFactory} from "../shared/rating-factory";
-import {PadletService} from "../shared/padlet.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Rating} from "../shared/rating";
 import {PadletFormErrorMessages} from "../padlet-form/padlet-form-error-messages";
@@ -53,7 +52,7 @@ export class RatingFormComponent {
       this.ratingForm.reset(RatingFactory.empty());
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigate(['/padlets', this.entrie?.padlet_id]); // Seite neu laden
-      }); // Seite neu laden
+      });
     });
   }
 

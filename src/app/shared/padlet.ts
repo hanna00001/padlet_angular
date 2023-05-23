@@ -9,6 +9,7 @@ export class Padlet {
     public user_id: number,
     public user: User,
     public is_public: boolean,
+    public created_at: string
   ) {
   }
 

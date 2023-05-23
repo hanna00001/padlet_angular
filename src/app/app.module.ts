@@ -23,6 +23,7 @@ import {UserService} from "./shared/user.service";
 import {EntrieService} from "./shared/entrie.service";
 import {RatingService} from "./shared/rating.service";
 import {CommentService} from "./shared/comment.service";
+import {JwtInterceptorService} from "./shared/jwt-interceptor.service";
 
 @NgModule({
   declarations: [
@@ -46,6 +47,11 @@ import {CommentService} from "./shared/comment.service";
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
       multi: true
     }],
   bootstrap: [AppComponent]

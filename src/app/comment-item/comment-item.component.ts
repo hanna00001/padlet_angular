@@ -13,6 +13,5 @@ export class CommentItemComponent {
 
   constructor() {}
 
-
   ngOnInit() {}
 }

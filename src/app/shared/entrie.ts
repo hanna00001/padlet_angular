@@ -15,7 +15,8 @@ export class Entrie {
     public title: string,
     public content: string,
     public ratings: Rating[],
-    public comments: Comment[]
+    public comments: Comment[],
+    public created_at: string
   ) {
   }
 }

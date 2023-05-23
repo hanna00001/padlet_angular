@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import {Padlet} from "./shared/padlet";
-import {HttpClient} from "@angular/common/http";
 import {AuthenticationService} from "./shared/authentication.service";
 
 @Component({
@@ -10,8 +8,7 @@ import {AuthenticationService} from "./shared/authentication.service";
 })
 export class AppComponent {
 
-  constructor(private authService: AuthenticationService) {
-  }
+  constructor(private authService: AuthenticationService) {}
 
   isLoggedIn() :boolean {
     return this.authService.isLoggedIn();

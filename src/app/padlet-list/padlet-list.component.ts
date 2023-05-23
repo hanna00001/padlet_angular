@@ -17,13 +17,27 @@ export class PadletListComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.ps.getAllPadlets().subscribe(res => {this.padlets = res});
-    this.getUsername();
+    this.ps.getAllPadlets().subscribe(res => {
+      this.padlets = res;
+      this.getUsername();
+      this.formatDate();
+    });
+
   }
 
   getUsername(){
     for(let padlet of this.padlets){
       this.us.getSingleUser(padlet.user_id).subscribe(res => padlet.user = res);
+    }
+  }
+
+  formatDate(){
+    for(let padlet of this.padlets) {
+      const date = new Date(padlet.created_at);
+      const day = date.getDate();
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+      padlet.created_at = `${day < 10 ? '0' + day : day}.${month < 10 ? '0' + month : month}.${year}`;
     }
   }
 
