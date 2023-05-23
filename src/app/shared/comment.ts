@@ -8,6 +8,7 @@ export class Comment {
   constructor(
     public id: number,
     public user_id: number,
+    public user: User,
     public entrie_id: number | undefined,
     public comment: string
   ) {

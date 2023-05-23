@@ -1,15 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Entrie, User} from "../shared/entrie";
-import {Rating} from "../shared/rating";
-import {Comment} from "../shared/comment";
-import {PadletService} from "../shared/padlet.service";
+import {Entrie} from "../shared/entrie";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthenticationService} from "../shared/authentication.service";
-import {UserFactory} from "../shared/user-factory";
 import {UserService} from "../shared/user.service";
 import {EntrieService} from "../shared/entrie.service";
-import {CommentService} from "../shared/comment.service";
-import {RatingService} from "../shared/rating.service";
 
 @Component({
   selector: 'div.bs-entrie-item',
@@ -21,17 +15,9 @@ export class EntrieItemComponent implements OnInit{
 
   @Input() entrie: Entrie | undefined
 
-  ratings: Rating[] = [];
-  comments: Comment[] = [];
-  user: User = UserFactory.empty();
-
-
   constructor(
-    private ps: PadletService,
     private us: UserService,
     private es: EntrieService,
-    private cs: CommentService,
-    private rs: RatingService,
     private route: ActivatedRoute,
     private router: Router,
     public authService: AuthenticationService) {
@@ -39,11 +25,9 @@ export class EntrieItemComponent implements OnInit{
   }
 
   ngOnInit() {
-    const params = this.route.snapshot.params;
     if(this.entrie){
-      this.us.getSingleUser(this.entrie.user_id).subscribe((u:User)=> this.user = u);
-      this.rs.getAllRatings(params['id'], this.entrie.id).subscribe(res=>this.ratings = res);
-      this.cs.getAllComments(params['id'], this.entrie.id).subscribe(res=>this.comments = res);
+      this.getRatingUsers();
+      this.getCommentUsers();
     }
   }
 
@@ -54,6 +38,22 @@ export class EntrieItemComponent implements OnInit{
         .subscribe((res:any) => this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate(['/padlets',this.entrie?.padlet_id ]); // Seite neu laden
         }));
+    }
+  }
+
+  getCommentUsers(){
+    if(this.entrie) {
+      for (let comment of this.entrie.comments) {
+        this.us.getSingleUser(comment.user_id).subscribe(res => comment.user = res)
+      }
+    }
+  }
+
+  getRatingUsers(){
+    if(this.entrie) {
+      for (let rating of this.entrie.ratings) {
+        this.us.getSingleUser(rating.user_id).subscribe(res => rating.user = res)
+      }
     }
   }
 

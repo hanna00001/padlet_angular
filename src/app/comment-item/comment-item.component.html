@@ -1,7 +1,7 @@
 <div class="item">
-  <img class="ui avatar image" src="{{user.image}}">
+  <img class="ui avatar image" src="{{comment?.user?.image}}">
   <div class="content">
-    <p class="header"> {{user.firstName}} {{user.lastName}}</p>
+    <p class="header"> {{comment?.user?.firstName}} {{comment?.user?.lastName}}</p>
     <p class="description">{{comment?.comment}}</p>
   </div>
 </div>

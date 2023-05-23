@@ -12,7 +12,7 @@ export class CommentService {
 
   constructor(private http: HttpClient) { }
 
-  getAllComments(padletid:number, entrieid:number|undefined):Observable<Comment[]>{
+  getAllComments(padletid:number, entrieid:number):Observable<Comment[]>{
     return this.http.get<Comment[]>(`${this.api}/padlets/${padletid}/entries/${entrieid}/comments`)
       .pipe(retry(3)).pipe(catchError(this.errorHandler))
   }
