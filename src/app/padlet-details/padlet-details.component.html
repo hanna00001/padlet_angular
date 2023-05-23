@@ -18,10 +18,10 @@
     </div>
     <div class="three wide column">
       <br>
-      <button *ngIf="isOwner() || authService.isLoggedIn()" class="ui tiny yellow icon label button" [routerLink]="['../../padletsform',padlet.id]">
+      <button *ngIf="isOwner()" class="ui tiny yellow icon label button" [routerLink]="['../../padletsform',padlet.id]">
         <i class="write icon"></i>  Padlet bearbeiten
       </button><br><br>
-      <button *ngIf="isOwner() || authService.isLoggedIn()" class="ui tiny red icon label button"
+      <button *ngIf="isOwner()" class="ui tiny red icon label button"
               (click)="removePadlet()">
         <i class="trash icon"></i>  Padlet löschen
       </button>

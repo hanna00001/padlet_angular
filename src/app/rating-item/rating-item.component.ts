@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Rating} from "../shared/rating";
-import {UserService} from "../shared/user.service";
 
 @Component({
   selector: 'div.bs-rating-item',

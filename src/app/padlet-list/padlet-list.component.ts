@@ -18,6 +18,7 @@ export class PadletListComponent implements OnInit{
 
   ngOnInit() {
     this.ps.getAllPadlets().subscribe(res => {this.padlets = res});
+    this.getUsername();
   }
 
   getUsername(){

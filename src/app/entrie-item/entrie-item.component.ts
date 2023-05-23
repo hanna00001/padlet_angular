@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AuthenticationService} from "../shared/authentication.service";
 import {UserService} from "../shared/user.service";
 import {EntrieService} from "../shared/entrie.service";
+import {RatingService} from "../shared/rating.service";
 
 @Component({
   selector: 'div.bs-entrie-item',
@@ -15,9 +16,12 @@ export class EntrieItemComponent implements OnInit{
 
   @Input() entrie: Entrie | undefined
 
+  checkRated : boolean = false;
+
   constructor(
     private us: UserService,
     private es: EntrieService,
+    private rs: RatingService,
     private route: ActivatedRoute,
     private router: Router,
     public authService: AuthenticationService) {
@@ -29,6 +33,7 @@ export class EntrieItemComponent implements OnInit{
       this.getRatingUsers();
       this.getCommentUsers();
     }
+    this.checkIfUserHasAlreadyRated();
   }
 
 
@@ -58,14 +63,10 @@ export class EntrieItemComponent implements OnInit{
   }
 
   checkIfUserHasAlreadyRated(){
-    /*let sessionId: string = <string>sessionStorage.getItem("userId");
-    let hasRated = true;
-    ths.ps.checkIfUserHasAlreadyRated(this.entrie?.id, parseInt(sessionId))
-      .subscribe(res => hasRated = res);
-    if (hasRated == true){
-      return true
-    }
-    else {return false;}*/
+    let sessionId: string = <string>sessionStorage.getItem("userId");
+    this.rs.checkIfUserHasAlreadyRated(this.entrie?.id, parseInt(sessionId)).subscribe(res=> {
+      this.checkRated = res;
+    });
 
   }
 

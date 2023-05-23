@@ -23,12 +23,12 @@
 
 <div class="ui list bs-rating-item" *ngFor="let rating of entrie?.ratings" [rating]="rating"> </div>
   <div *ngIf="authService.isLoggedIn()">
-    <div class="bs-rating-form" [entrie]="entrie"></div>
+    <div *ngIf="!checkRated" class="bs-rating-form" [entrie]="entrie"></div>
   </div>
 
 
 <p>
-  Kommentare
+  Kommentare:
 </p>
   <div class="ui list bs-comment-item" *ngFor="let comment of entrie?.comments" [comment]="comment">
 
