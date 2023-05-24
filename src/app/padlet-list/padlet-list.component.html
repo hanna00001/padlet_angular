@@ -1,11 +1,15 @@
- <div class="ui raised segment">
+ <div *ngIf="authService.isLoggedIn()" class="ui raised segment">
     <button class="fluid ui button icon" [routerLink]="['../padletsform']"><i class="plus icon"></i> Neues Padlet erstellen</button>
   </div>
 
   <div class="ui middle aligned selection list">
-    <a *ngFor="let padlet of padlets" class="item bs-padlet-list-item"
-       [padlet]="padlet" [routerLink]="['../padlets', padlet.id.toString()]">
-    </a>
+    <div *ngFor="let padlet of padlets" class="item">
+      <div *ngIf="authService.isLoggedOut() && padlet?.is_public == true || authService.isLoggedIn()">
+        <a  class="bs-padlet-list-item"
+           [padlet]="padlet" [routerLink]="['../padlets', padlet.id.toString()]">
+        </a>
+      </div>
+    </div>
 
     <div *ngIf="!padlets" class="ui active dimmer">
       <div class="ui large text loader">Daten werden geladen...</div>

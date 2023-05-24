@@ -1,4 +1,3 @@
-<div *ngIf="authService.isLoggedOut() && padlet?.is_public == true || authService.isLoggedIn()">
 <div class="ui raised segment" *ngIf="currentUrl == '/mypadlets' && padlet?.user_id == sessionId || currentUrl == '/padlets'">
   <div class="header">{{ padlet?.name }} </div>
   <div class="ui image label mini right floated">
@@ -11,8 +10,6 @@
     <span *ngIf="padlet?.is_public != true">privat</span>
     | erstellt am {{padlet?.created_at}}
   </div>
-
-
 </div>
-</div>
+
 

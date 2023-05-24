@@ -24,9 +24,7 @@ export class AuthenticationService {
       password: password
     });
   }
-  public getCurrentUserId() {
-    return Number.parseInt(<string>sessionStorage.getItem("userId"));
-  }
+
   public setSessionStorage(token: string) {
     console.log("Storing token");
     console.log(jwt_decode(token));

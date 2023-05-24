@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Padlet} from "../shared/padlet";
 import {PadletService} from "../shared/padlet.service";
 import {UserService} from "../shared/user.service";
+import {AuthenticationService} from "../shared/authentication.service";
 
 @Component({
   selector: 'bs-padlet-list',
@@ -13,7 +14,7 @@ export class PadletListComponent implements OnInit{
 
   padlets: Padlet[] = [];
 
-  constructor(private ps: PadletService, private us: UserService) {
+  constructor(private ps: PadletService, private us: UserService, public authService: AuthenticationService) {
   }
 
   ngOnInit() {

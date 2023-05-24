@@ -21,8 +21,7 @@ export class PadletListItemComponent implements OnInit{
   constructor(
     private ps: PadletService,
     private route: ActivatedRoute,
-    private router: Router,
-    public authService: AuthenticationService) {
+    private router: Router) {
   }
 
   ngOnInit(){

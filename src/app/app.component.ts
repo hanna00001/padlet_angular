@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthenticationService} from "./shared/authentication.service";
+import {UserService} from "./shared/user.service";
 
 @Component({
   selector: 'bs-root',
